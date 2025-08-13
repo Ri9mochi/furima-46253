@@ -2,9 +2,8 @@ FactoryBot.define do
   factory :user do
     nickname              { Faker::Name.initials(number: 2) }
     email                 { Faker::Internet.email }
-    password              { Faker::Internet.password(min_length: 6) }
+    password              { '1a' + Faker::Internet.password(min_length: 6) }
     password_confirmation { password }
-    # Fakerは漢字氏名とカナ氏名のペアを自動生成できないため、テストの安定性を考慮して固定値を設定します
     last_name             { '山田' }
     first_name            { '太郎' }
     last_name_kana        { 'ヤマダ' }
