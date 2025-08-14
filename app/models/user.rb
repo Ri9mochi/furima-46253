@@ -19,6 +19,8 @@ class User < ApplicationRecord
     validates :first_name_kana
   end
 
+  has_many :items
+
   private
 
   def password_complexity
