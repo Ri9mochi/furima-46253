@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_unless_editable, only: [:edit, :update, :destroy]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -23,11 +24,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @item.user_id == current_user.id
-      render :edit
-    else
-      redirect_to root_path
-    end
   end
 
   def update
@@ -39,12 +35,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.user_id == current_user.id
-      @item.destroy
-      redirect_to root_path
-    else
-      redirect_to item_path(@item)
-    end
+    @item.destroy
+    redirect_to root_path
   end
 
   private
@@ -55,6 +47,12 @@ class ItemsController < ApplicationController
   end
 
   def set_item
-    @item = Item.find(params[:id])
+    @item = Item.with_attached_image.includes(:user, :order).find(params[:id])
+  end
+
+  def redirect_unless_editable
+    return unless @item.user_id != current_user.id || @item.order.present?
+
+    redirect_to root_path
   end
 end
