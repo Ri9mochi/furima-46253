@@ -17,6 +17,7 @@ test:
   password:
   host: localhost
   database: furima-46253_test
+  prepared_statements: false
 
 production:
   <<: *default
