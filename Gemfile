@@ -101,3 +101,5 @@ gem 'dotenv-rails'
 
 	
 gem "aws-sdk-s3", require: false
+
+gem "nokogiri", force_ruby_platform: true
