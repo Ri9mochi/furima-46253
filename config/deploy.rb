@@ -24,7 +24,7 @@ set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
 set :keep_releases, 5
 
-set :bundle_env_vars, {
+set :default_env, {
 'BUNDLE_FORCE_RUBY_PLATFORM' => 'true',
 'BUNDLE_BUILD__MYSQL2' => '--with-mysql-config=/usr/bin/mysql_config --with-openssl-dir=/usr/lib64/openssl11'
 }
@@ -38,17 +38,3 @@ namespace :deploy do
   end
 end
 
-namespace :deploy do
-desc 'Print build environment variables just before bundle install'
-task :print_bundle_env do
-on roles(:app) do
-within release_path do
-execute :echo, "'### Printing BUNDLE environment variables ###'"
-execute :env, "| grep BUNDLE"
-execute :echo, "'############################################'"
-end
-end
-end
-end
-
-before 'bundler:install', 'deploy:print_bundle_env'
