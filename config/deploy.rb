@@ -37,3 +37,18 @@ namespace :deploy do
     invoke 'unicorn:restart'
   end
 end
+
+namespace :deploy do
+desc 'Print build environment variables just before bundle install'
+task :print_bundle_env do
+on roles(:app) do
+within release_path do
+execute :echo, "'### Printing BUNDLE environment variables ###'"
+execute :env, "| grep BUNDLE"
+execute :echo, "'############################################'"
+end
+end
+end
+end
+
+before 'bundler:install', 'deploy:print_bundle_env'
