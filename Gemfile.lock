@@ -442,7 +442,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   mini_magick
-  mysql2 (~> 0.5.4)
+  mysql2 (~> 0.5)
   payjp
   pry-byebug
   pry-rails

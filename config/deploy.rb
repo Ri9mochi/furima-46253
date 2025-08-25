@@ -8,7 +8,7 @@ set :repo_url,  'git@github.com:Ri9mochi/furima-46253.git'
 set :branch, 'main'
 
 # バージョンが変わっても共通で参照するディレクトリを指定
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', ".bundle", 'public/system', 'public/uploads')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 
 set :rbenv_type, :user
 set :rbenv_ruby, '3.2.0'
@@ -23,11 +23,6 @@ set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 # Unicornの設定ファイルの場所
 set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
 set :keep_releases, 5
-
-set :bundle_env_vars, {
-  'BUNDLE_FORCE_RUBY_PLATFORM' => 'true',
-  'BUNDLE_BUILD__MYSQL2' => '--with-mysql-config=/usr/bin/mysql_config --with-openssl-dir=/etc/pki/tls'
-}
 
 # デプロイ処理が終わった後、Unicornを再起動するための記述
 after 'deploy:publishing', 'deploy:restart'
