@@ -25,7 +25,6 @@ set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
 set :keep_releases, 5
 
 set :default_env, {
-'BUNDLE_FORCE_RUBY_PLATFORM' => 'true',
 'BUNDLE_BUILD__MYSQL2' => '--with-mysql-config=/usr/bin/mysql_config --with-openssl-dir=/usr/lib64/openssl11'
 }
 
