@@ -73,6 +73,11 @@ end
 
 group :development do
   gem 'rubocop', '1.71.2', require: false
+  gem 'capistrano'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano3-unicorn'
 end
 
 group :production do
